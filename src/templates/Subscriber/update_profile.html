@@ -1,0 +1,42 @@
+{% if request.user.is_authenticated %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Subsctiption App | Update Profile</title>
+
+    <!-- Bootstrap core CSS -->
+     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/floating-labels.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="{% static "img/login.png" %}" alt="" width="80" height="80">
+        <h1 class="h3 mb-3 font-weight-normal">Update Your Profile</h1>
+        <p><a href="{% url "Subscriber:subscriber_profile" request.user %}">Back to Profile</a></p>
+      </div>
+
+      <form method="POST" action="">{% csrf_token %}
+	
+			{{ form|crispy }}
+
+		<br/>
+		<input type="submit" value="Update" class="btn btn-primary" style="width:100%">
+		</form>
+	
+
+    </div>
+  </body>
+</html>
+{% endif %}

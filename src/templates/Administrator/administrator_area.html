@@ -1,0 +1,45 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Subsctiption App | Administrator Area</title>
+
+    <!-- Bootstrap core CSS -->
+     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/floating-labels.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="{% static "img/login.png" %}" alt="" width="80" height="80">
+        <h1 class="h3 mb-3 font-weight-normal">Administrator Area</h1>
+        <p><a href="{% url "home_page" %}">Back to homepage</a></p>
+      </div>
+      		
+		{% if request.user.is_staff or request.user.is_paymentchecker or request.user.is_userchecker %}
+
+			<a href="{% url "Administrator:admin_area" %}" class="btn btn-primary" style="width: 100%"> Admin Login</a>
+			<hr>
+			<a href="{% url "UserChecker:user_list" %}" class="btn btn-info" style="width: 100%">User Chekcer Login</a><hr>
+			<a href="{% url "PaymentChecker:all_users_payment_checker" %}" class="btn btn-success"  style="width: 100%">Payment Chekcer Login</a>
+
+		{% else %}
+
+		You don't have permission to access this link.
+
+		{% endif %}
+
+
+    </div>
+  </body>
+</html>

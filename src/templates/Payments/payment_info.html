@@ -1,0 +1,90 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Subsctiption App | Payment</title>
+
+    <!-- Bootstrap core CSS -->
+     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/floating-labels.css" %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+  </head>
+
+  <body>
+      <div class="text-center mb-8">
+      
+
+                <div id="content2" style="background: #fff;border-bottom: 1px solid #ffffff;">
+                      <div class="tokenDet" style="padding: 15px;border: 1px solid #000;width: 80%;margin: 0 auto;position: relative;overflow: hidden;">
+                          <div class="title" style="text-align: center;border-bottom: 1px solid #000;margin-bottom: 15px;">
+                              <h2>Payments Informations</h2>
+                            </div>
+                            <div class="parentdiv" style="display: inline-block;width: 100%;position: relative;">
+                              <div class="innerdiv" style="width: 80%;float: left;">
+                                <div class="restDet">
+                                        <div class="div">
+                                          {% if messages %}
+                                              <ul class="messages">
+                                                  {% for message in messages %}
+                                                  <p{% if message.tags %} class="{{ message.tags }}"{% endif %}><p style="color:green;">{{ message }}</p></p>
+                                                  {% endfor %}
+                                                  
+                                              </ul>
+                                              
+                                        {% endif %}
+                                           <p>Your Transaction ID is ----> <b>{{ qs }}</b></p>
+                                            <p style="color: red;font-size: 15px">***** Note *** Keep this info with Transaction ID for further proccess.If you will lost this ID,then we will not take that responsibilies.We will suggest you to save this info.</p>
+
+                                            <p>User Name ----> {{ qs.user_name }}</p>
+                                            <p>Entry Date ----> {{ qs.entry_date }}</p>
+                                            <p>Amount ---- >
+                                              
+                                                {% if qs.billing_cycle == "A" %}
+                                                <b>$100</b>
+                                                {% elif qs.billing_cycle == "B" %}
+                                                <b>$200</b>
+                                                {% elif qs.billing_cycle == "C" %}
+                                                <b>$300</b>
+                                                {% else %}
+                                                <b>$400</b>
+                                                {% endif %}
+
+                                            </p>
+                                            
+                                    </div>
+                                                </div>
+                                                  <div class="sideDiv" style="width: 20%;float: left;">
+                                                    <p><a href="{% url "Subscriber:login" %}" class="btn btn-primary" style="width:100%">Go to login page</a></p>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                    <br>
+                <button class="btn btn-info" id="cmd2" >Download</button>
+
+                <script type="text/javascript">
+                  
+                  $('#cmd2').click(function() {
+                          var options = {
+                          //'width': 800,
+                          };
+                          var pdf = new jsPDF('p', 'pt', 'a4');
+                          pdf.addHTML($("#content2"), -1, 220, options, function() {
+                            pdf.save('payment_statements.pdf');
+                          });
+                      });
+                </script>
+  </body>
+</html>
+
